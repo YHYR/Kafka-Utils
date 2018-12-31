@@ -1,0 +1,13 @@
+.idea/
+.git/
+*.iml
+
+*.pyc
+
+*target/
+logs/
+gitpull.sh
+/.settings/
+.classpath
+.project
+bin/
