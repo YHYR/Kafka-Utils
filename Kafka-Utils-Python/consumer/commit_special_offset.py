@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Subject: 修改给定Group、Topic下各Partition的offset
+Subject: 修改给定Group、Topic下各Partition的offset; 不触发Group的Rebalance
     Tips: offset的修改必须是基于Partition而言的, 而非是Topic
 
 @Author YH YR
