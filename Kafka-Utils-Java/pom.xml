@@ -11,10 +11,9 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
+            <artifactId>kafka_2.11</artifactId>
             <version>1.0.1</version>
         </dependency>
-
     </dependencies>
 
     <build>
