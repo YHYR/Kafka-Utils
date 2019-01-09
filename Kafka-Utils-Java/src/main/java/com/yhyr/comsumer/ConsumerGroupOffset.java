@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 public class ConsumerGroupOffset {
     public static void main(String[] args) {
-        String brokers = "172.31.7.40:9092";
+        String brokers = "localhost:9092";
         String group = "group_test";
         String topic = "__consumer_offsets";
 
