@@ -45,5 +45,5 @@ if __name__ == '__main__':
     group_name = 'group_test'
     topic = ['topic_demo']
 
-    action = ConsumerSpecialOffset(broker_list, group_name, topic, enable_auto_commit=True)
+    action = ConsumerSpecialOffset(broker_list, group_name, topic)
     action.consumer_from_offset(print_msg, 1000)

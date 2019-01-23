@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Subject: 查询broker在指定时间窗内写入消息的offset范围; 适用于Kafka 1.0 以后
+Subject: 查询broker在指定时间窗内写入消息的offset范围; 适用于Kafka 0.10.1.0 以后
     Tips:
         KafkaConsumer.offsetsForTimes 查找符合给定时间的第一条消息的offset; 如果不存在，则返回null
         时间戳为毫秒级
@@ -13,9 +13,9 @@ from kafka import KafkaConsumer, TopicPartition
 
 
 class GetOffsetWithTimestamp:
-    def __init__(self, broker_list, group_name, topic):
+    def __init__(self, broker_list, topic):
         self.topic = topic
-        self.consumer = KafkaConsumer(group_id=group_name, bootstrap_servers=broker_list)
+        self.consumer = KafkaConsumer(bootstrap_servers=broker_list)
 
     def get_offset_time_window(self, begin_time, end_time):
         partitions_structs = []
@@ -34,9 +34,10 @@ class GetOffsetWithTimestamp:
         end_offset = self.consumer.offsets_for_times(end_search)
 
         for topic_partition, offset_and_timestamp in begin_offset.items():
+            b_offset = 'null' if offset_and_timestamp is None else offset_and_timestamp[0]
+            e_offset = 'null' if end_offset[topic_partition] is None else end_offset[topic_partition][0]
             print('Between {0} and {1}, {2} offset range = [{3}, {4}]'.format(begin_time, end_time, topic_partition,
-                                                                              offset_and_timestamp[0],
-                                                                              end_offset[topic_partition][0]))
+                                                                              b_offset, e_offset))
 
     @staticmethod
     def __str_to_timestamp(str_time, format_type='%Y-%m-%d %H:%M:%S'):
@@ -46,8 +47,7 @@ class GetOffsetWithTimestamp:
 
 if __name__ == '__main__':
     broker_list = 'localhost:9092'
-    group_name = 'group_test'
     topic = 'topic_demo'
 
-    action = GetOffsetWithTimestamp(broker_list, group_name, topic)
-    action.get_offset_time_window('2018-12-30 16:32:49', '2018-12-31 11:35:51')
+    action = GetOffsetWithTimestamp(broker_list, topic)
+    action.get_offset_time_window('2018-12-30 17:00:00', '2018-12-30 20:00:00')

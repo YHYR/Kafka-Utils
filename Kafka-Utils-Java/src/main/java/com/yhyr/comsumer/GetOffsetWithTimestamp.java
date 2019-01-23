@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Class Subject: 查询broker在指定时间窗内写入消息的offset范围; 适用于Kafka 1.0 以后
+ * Class Subject: 查询broker在指定时间窗内写入消息的offset范围; 适用于Kafka 0.10.1.0 以后
  *
  * Tips: KafkaConsumer.offsetsForTimes 查找符合给定时间的第一条消息的offset; 如果不存在，则返回null
  *
