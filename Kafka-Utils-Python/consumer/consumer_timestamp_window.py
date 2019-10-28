@@ -16,12 +16,12 @@ class ConsumerTimeStampWindow:
                                       enable_auto_commit=enable_auto_commit, auto_offset_reset=auto_offset_reset)
 
     def consumer_from_offset_window(self, process_msg, begin_time, end_time):
+        self.consumer.subscribe(self.topic)
+        self.consumer.poll(0)
+
         begin_offset_dic, end_offset_dic = self.get_offset_time_window(begin_time, end_time)
         for topic_partition, offset_and_timestamp in begin_offset_dic.items():
             self.consumer.seek(topic_partition, offset_and_timestamp[0])
-
-        self.consumer.subscribe(self.topic)
-        self.consumer.poll(0)
 
         topic_partition_info = self.consumer.assignment()
         partition_consumer_finish_flag = dict(zip(topic_partition_info, [False] * len(topic_partition_info)))
